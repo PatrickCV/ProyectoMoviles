@@ -8,4 +8,67 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- ====================<Estilos Jason>==================== -->
+
+
+
+    <!-- ====================</Estilos Jason>==================== -->
+
+
+
+    <!-- ====================<Estilos Patrick>==================== -->
+
+    <!-- <Login> -->
+
+    <style name="tvUsuarioLogin">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="tvPasswordLogin">
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="etUsuarioLogin">
+        <item name="android:width">100dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="etPasswordLogin">
+        <item name="android:width">120dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="btnEntrarLogin">
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <!-- </Login> -->
+
+    <!-- <Menu Principal> -->
+
+    <style name="btnMenuPrincipal">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <!-- </Menu Principal> -->
+
+    <!-- ====================</Estilos Patrick>==================== -->
+
+
+
+    <!-- ====================<Estilos Yanka>==================== -->
+
+
+
+    <!-- ====================</Estilos Yanka>==================== -->
+
 </resources>

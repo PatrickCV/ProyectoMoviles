@@ -3,4 +3,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvUsuarioLogin">Usuario</string>
+    <string name="tvPasswordLogin">Contraseña</string>
+    <string name="btnEntrarLogin">Entrar</string>
+    <string name="btnNuevaCompraMenuPrincipal">Nueva Compra</string>
+    <string name="btnHistorialComprasMenuPrincipal">Historial de Compras</string>
+    <string name="btnConfUsuarioMenuPrincipal">Configuración de Usuario</string>
+    <string name="btnSalirMenuPrincipal">Salir</string>
 </resources>

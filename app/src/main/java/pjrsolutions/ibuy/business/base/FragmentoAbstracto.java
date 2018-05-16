@@ -11,5 +11,11 @@ public class FragmentoAbstracto extends Fragment {
 		super.onCreate(savedInstanceState);
 		
 	}
+	
+	public void nuevoFragmento (FragmentoAbstracto fragmento) {
+	
+		((ActividadAbstracta)this.getActivity()).nuevoFragmento(fragmento);
+	
+	}
 
 }

@@ -14,7 +14,8 @@ public class ActividadAbstracta extends AppCompatActivity {
 	*/
 	public boolean puedeCambiarFragmento () {
 		
-		if (this.getSupportFragmentManager().getBackStackEntryCount() == 1) {
+		// No se esta en el fragmento antes del Login.
+		if (this.getSupportFragmentManager().getBackStackEntryCount() == 2) {
 			
 			return false;
 			

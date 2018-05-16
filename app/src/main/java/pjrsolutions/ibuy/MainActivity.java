@@ -3,8 +3,7 @@ package pjrsolutions.ibuy;
 import android.os.Bundle;
 
 import pjrsolutions.ibuy.business.base.ActividadAbstracta;
-import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
-import pjrsolutions.ibuy.business.pruebas.FragmentoPrueba;
+import pjrsolutions.ibuy.business.login.Login;
 
 public class MainActivity extends ActividadAbstracta {
 	
@@ -15,8 +14,8 @@ public class MainActivity extends ActividadAbstracta {
 		this.setContentView(R.layout.activity_main);
 		
 		if (savedInstanceState == null) {
-		
-			this.nuevoFragmento(new FragmentoPrueba());
+			
+			this.nuevoFragmento(new Login());
 		
 		}
 		

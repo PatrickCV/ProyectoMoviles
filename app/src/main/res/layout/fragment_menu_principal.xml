@@ -1,0 +1,57 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pjrsolutions.ibuy.business.menuPrincipal.MenuPrincipal">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnNuevaCompraMenuPrincipal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnNuevaCompraMenuPrincipal"
+                    android:theme="@style/btnMenuPrincipal" />
+
+                <Button
+                    android:id="@+id/btnHistorialComprasMenuPrincipal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/btnHistorialComprasMenuPrincipal"
+                    android:theme="@style/btnMenuPrincipal" />
+
+                <Button
+                    android:id="@+id/btnConfUsuarioMenuPrincipal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/btnConfUsuarioMenuPrincipal"
+                    android:theme="@style/btnMenuPrincipal" />
+
+                <Button
+                    android:id="@+id/btnSalirMenuPrincipal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/btnSalirMenuPrincipal"
+                    android:theme="@style/btnMenuPrincipal" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
