@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -30,7 +31,7 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 	private LinearLayout llAreaObjetos;
 	private ProgressBar pbProgreso;
 	
-	private OnScrollChangeListener scrollChangeListener;
+	private ViewTreeObserver.OnScrollChangedListener scrollChangeListener;
 	private FinDeListaListener finDeListaListener;
 	private ArrayList<FinDeListaListener> finDeListaListeners;
 	
@@ -84,7 +85,7 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 	/**
 		Inicia los componentes visuales a partir de un layout.
 	*/
-	@SuppressLint("NewApi")
+//	@SuppressLint("NewApi")
 	private void initUI (Context context) {
 		
 		// Capturar vistas.
@@ -97,35 +98,61 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		this.eventosScroll();
 		
 		// Asignar eventos.
-		this.scScroll.setOnScrollChangeListener(this.scrollChangeListener);
+//		this.scScroll.setOnScrollChangeListener(this.scrollChangeListener);
+		
+		this.scScroll.getViewTreeObserver().addOnScrollChangedListener(this.scrollChangeListener);
 		
 	}
 	
 	/**
 		Eventos de hacer scroll.
 	*/
-	@SuppressLint("NewApi")
+//	@SuppressLint("NewApi")
 	private void eventosScroll () {
 		
-		this.scrollChangeListener = new OnScrollChangeListener() {
+		this.scrollChangeListener = new ViewTreeObserver.OnScrollChangedListener() {
 			
 			@Override
-			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+			public void onScrollChanged() {
+			
+				int scrollY = scScroll.getScrollY();
+				
+//				System.out.println(scrollY);
 				
 				if (scrollY % 2 == 0) { // Cada 2 dp.
-					
+
 					// Se llego al final y no se esta atendiendo el evento.
 					if (enElFinal() && !isAtendiendoFinDeLista()) {
-						
+
 						notifyFinDeListaListeners(); // Notificar listeners.
-						
+
 					}
-					
+
 				}
-				
+			
 			}
 			
 		};
+		
+//		OnScrollChangeListener() {
+//
+//			@Override
+//			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//
+//				if (scrollY % 2 == 0) { // Cada 2 dp.
+//
+//					// Se llego al final y no se esta atendiendo el evento.
+//					if (enElFinal() && !isAtendiendoFinDeLista()) {
+//
+//						notifyFinDeListaListeners(); // Notificar listeners.
+//
+//					}
+//
+//				}
+//
+//			}
+//
+//		};
 		
 	}
 	
