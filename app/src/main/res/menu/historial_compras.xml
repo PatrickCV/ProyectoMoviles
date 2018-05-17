@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opFiltrarMenuHistorialCompras"
+        android:title="@string/opFiltrarMenuHistorialCompras" />
+    <item
+        android:id="@+id/opMenuPrincipalMenuHistorialCompras"
+        android:title="@string/opMenuPrincipalMenuHistorialCompras" />
+    <item
+        android:id="@+id/opSalirMenuHistorialCompras"
+        android:title="@string/opSalirMenuHistorialCompras" />
+</menu>

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/iBuy.iml" filepath="$PROJECT_DIR$/iBuy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javax.json-1.0/javax.json-1.0.iml" filepath="$PROJECT_DIR$/javax.json-1.0/javax.json-1.0.iml" />
     </modules>
   </component>
 </project>

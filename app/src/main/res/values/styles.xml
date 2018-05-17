@@ -61,6 +61,48 @@
 
     <!-- </Menu Principal> -->
 
+    <!-- Elemento Articulos Compra -->
+
+    <style name="lblNompreArticuloElementoArticuloCompra">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="lblNumerosElementoArticuloCompra">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- /Elemento Articulos Compra -->
+
+    <!-- Elemento historial compras. -->
+
+    <style name="lblSucursalHistorialCompras">
+        <item name="android:textSize">20sp</item>
+        <!--<item name="android:textColor"></item>-->
+        <!--<item name="android:fontFamily"></item>-->
+
+        <!--<item name="android:scrollbarAlwaysDrawHorizontalTrack">false</item>-->
+        <!--<item name="android:scrollbars">none</item>-->
+    </style>
+
+    <style name="btnVerMasHistorialCompras">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="lblFechaHoraHistorialCompras">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="lblMontoHistorialCompras">
+        <!--<item name="android:textColor"></item>-->
+        <!--<item name="android:fontFamily"></item>-->
+        <item name="android:textSize">15sp</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
+    <!-- /Elemento historial compras. -->
+
     <!-- ====================</Estilos Patrick>==================== -->
 
 

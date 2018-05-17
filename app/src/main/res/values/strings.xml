@@ -10,4 +10,17 @@
     <string name="btnHistorialComprasMenuPrincipal">Historial de Compras</string>
     <string name="btnConfUsuarioMenuPrincipal">Configuración de Usuario</string>
     <string name="btnSalirMenuPrincipal">Salir</string>
+    <string name="ttlHistorialCompras">Historial de Compras</string>
+    <string name="ttlInfoCompra">Información de Compra</string>
+    <string name="opFiltrarMenuHistorialCompras">Filtrar</string>
+    <string name="opMenuPrincipalMenuHistorialCompras">Menú</string>
+    <string name="opSalirMenuHistorialCompras">Salir</string>
+    <string name="fechaPorDefecto">00/00/00, 00:00 pm</string>
+    <string name="textoPorDefecto">Esto es un texto por defecto</string>
+    <string name="numeroporDefecto">12345678910</string>
+    <string name="opFiltrarMenuInfoCompra">Filtrar</string>
+    <string name="opMenuPrincipalMenuInfoCompra">Menu</string>
+    <string name="opSalirMenuInfoCompra">Salir</string>
+    <string name="ramsheka">Ramasheka Talamasoa</string>
+    <string name="decimalPordefecto">1234567.78910</string>
 </resources>

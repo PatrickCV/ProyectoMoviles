@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
+import pjrsolutions.ibuy.business.historialCompras.HistorialCompras;
 
 public class MenuPrincipal extends FragmentoAbstracto {
 	
@@ -90,7 +91,7 @@ public class MenuPrincipal extends FragmentoAbstracto {
 				
 				} else if (v.getId() == R.id.btnHistorialComprasMenuPrincipal) { // Historial Compras.
 				
-				
+					nuevoFragmento(new HistorialCompras());
 				
 				} else if (v.getId() == R.id.btnConfUsuarioMenuPrincipal) { // Configuracion Usuario.
 				

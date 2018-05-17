@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/opFiltrarMenuInfoCompra"
+        android:title="@string/opFiltrarMenuInfoCompra" />
+    <item
+        android:id="@+id/opMenuPrincipalMenuInfoCompra"
+        android:title="@string/opMenuPrincipalMenuInfoCompra" />
+    <item
+        android:id="@+id/opSalirMenuInfoCompra"
+        android:title="@string/opSalirMenuInfoCompra" />
+</menu>
