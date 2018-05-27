@@ -9,7 +9,10 @@
     </style>
 
     <!-- ====================<Estilos Jason>==================== -->
-
+    <style name="boton_normal" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@drawable/boton_normal</item>
+    </style>
 
 
     <!-- ====================</Estilos Jason>==================== -->
