@@ -17,6 +17,7 @@ import pjrsolutions.ibuy.domain.Compra;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaEvent;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaListener;
 import pjrsolutions.ibuy.view.ListaComprasView;
+import pjrsolutions.ibuy.webServices.WebServiceCompras;
 
 /**
 
@@ -28,7 +29,6 @@ public class HistorialCompras extends FragmentoAbstracto {
 	private ArrayList<Compra> compras; // Compras.
 
 	private View estadoVista; // Guarda estado de la vista.
-
 	private ListaComprasView listaCompras; // View donde se cargan las compras.
 
 //	private WebServiceClienteCompras webServiceClienteCompras; // Web service.
@@ -43,9 +43,7 @@ public class HistorialCompras extends FragmentoAbstracto {
 	public HistorialCompras() {
 
 		this.compras = new ArrayList<Compra>();
-
-//		this.webServiceClienteCompras = WebServiceClienteCompras.singleton();
-
+		
 	}
 
 	/**
@@ -72,33 +70,38 @@ public class HistorialCompras extends FragmentoAbstracto {
 	/**
 		Crea la vista.
 	*/
-//	@SuppressLint("NewApi")
 	private View crearVista (LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 
 		// Capturar las vistas.
 		View view = inflater.inflate(R.layout.fragment_historial_compras, container, false);
-		ListaComprasView lista = (ListaComprasView)view.findViewById(R.id.lista);
+		this.listaCompras = (ListaComprasView)view.findViewById(R.id.lista);
+		
+		this.listaCompras.setObjetos(this.compras); // Asignar la lista de compras.
+		this.listaCompras.setHistorialCompras(this); // Asignar this.
 
-		lista.setObjetos(this.compras); // Asignar la lista de compras.
-		lista.setHistorialCompras(this); // Asignar this.
-
+		// Inicializando eventos.
 		this.eventosFinDeLista();
-
-		lista.setFinDeListaListener(this.finDeListaListener);
-
-		/*
-			Llamar web service aqui.
-		*/
-
-		for (int x = 0; x < 20; x ++) {
-
-			n ++;
-
-			lista.add(new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000));
-
-		}
-
+		
+		// Asignando eventos.
+		this.listaCompras.setFinDeListaListener(this.finDeListaListener);
+		
+		// Llamando webservice.
+		WebServiceCompras webServiceCompras = new WebServiceCompras(this);
+		webServiceCompras.execute("getPagina", "patrickconejo14__ARROBA__gmail__DOT__com","0","5","---","---","25-05-2018","29-05-2018","5000.5","monto","desc");
+		
+//		this.listaCompras.changeAtendiendoFinDeLista();
+//
+//		for (int x = 0; x < 20; x ++) {
+//
+//			n ++;
+//
+//			this.listaCompras.add(new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000));
+//
+//		}
+//
+//		this.listaCompras.changeAtendiendoFinDeLista();
+		
 		return view;
 
 	}
@@ -156,25 +159,31 @@ public class HistorialCompras extends FragmentoAbstracto {
 					Llamar web service aqui.
 				*/
 
-				event.getLista().changeAtendiendoFinDeLista();
-				System.out.println("En el final");
-
-				for (int x = 0; x < 5; x ++) {
-
-					n ++;
-
-					Compra compra = new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000);
-
-					((ListaComprasView)event.getLista()).add(compra);
-
-				}
-
-				event.getLista().changeAtendiendoFinDeLista();
+//				event.getLista().changeAtendiendoFinDeLista();
+//				System.out.println("En el final");
+//
+//				for (int x = 0; x < 5; x ++) {
+//
+//					n ++;
+//
+//					Compra compra = new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000);
+//
+//					((ListaComprasView)event.getLista()).add(compra);
+//
+//				}
+//
+//				event.getLista().changeAtendiendoFinDeLista();
 
 			}
 
 		};
 
+	}
+	
+	public ListaComprasView getListaCompras () {
+		
+		return this.listaCompras;
+		
 	}
 	
 }

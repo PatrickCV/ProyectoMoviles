@@ -14,12 +14,13 @@ import pjrsolutions.ibuy.domain.Compra;
 import pjrsolutions.ibuy.events.verMas.VerMasEvent;
 import pjrsolutions.ibuy.events.verMas.VerMasListener;
 import pjrsolutions.ibuy.view.base.ListaAbstracta;
+import pjrsolutions.ibuy.view.base.ListaDinamicaAbstracta;
 
 /**
 	Clase que hereda de ListaAbstracta.
 	Representa una lista de Compra.
 */
-public class ListaComprasView extends ListaAbstracta<Compra> {
+public class ListaComprasView extends ListaDinamicaAbstracta<Compra> {
 	
 	private HistorialCompras historialCompras;
 	

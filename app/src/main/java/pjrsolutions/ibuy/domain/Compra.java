@@ -1,5 +1,6 @@
 package pjrsolutions.ibuy.domain;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,16 +30,46 @@ public class Compra {
 		
 		try {
 			
-			this.codigo = json.getInt("codigo");
+			this.codigo = json.getInt("id");
 			this.sucursal = json.getString("sucursal");
 			this.fecha = json.getString("fecha");
 			this.monto = json.getDouble("monto");
+			this.articulos = new ArrayList<ArticuloCompra>();
 			
 		} catch (JSONException e) {
 			
 			System.out.println("No se pudo parsear Compra de JSON");
 			
 		}
+		
+	}
+	
+	public static ArrayList<Compra> parseJSON (String strJSON) {
+		
+		ArrayList<Compra> compras = new ArrayList<Compra>();
+		
+		try {
+			
+			JSONObject json = new JSONObject(strJSON);
+			JSONArray jsonCompras = json.getJSONArray("compras");
+			
+			JSONObject jsonCompra;
+			
+			for (int x = 0; x < jsonCompras.length(); x ++) {
+				
+				JSONObject object = new JSONObject(jsonCompras.get(x).toString());
+				
+				compras.add(new Compra(object));
+				
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return compras;
 		
 	}
 	

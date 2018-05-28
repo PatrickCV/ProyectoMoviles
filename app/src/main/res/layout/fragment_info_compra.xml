@@ -71,9 +71,10 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/lvArticulosInfoCompra"
+        <pjrsolutions.ibuy.view.ListaArticulosCompraView
+            android:id="@+id/ListaArticulosCompra"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 </FrameLayout>
