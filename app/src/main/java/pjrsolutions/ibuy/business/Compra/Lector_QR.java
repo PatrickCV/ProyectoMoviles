@@ -13,6 +13,8 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
+import pjrsolutions.ibuy.datos.BaseDatosSQLite;
+import pjrsolutions.ibuy.domain.ArticuloCompra;
 
 public class Lector_QR extends FragmentoAbstracto implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
@@ -20,6 +22,9 @@ public class Lector_QR extends FragmentoAbstracto implements ZXingScannerView.Re
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mScannerView = new ZXingScannerView(getActivity());
+
+        BD = new BaseDatosSQLite(getActivity(), null);
+
         return mScannerView;
     }
 
@@ -33,8 +38,12 @@ public class Lector_QR extends FragmentoAbstracto implements ZXingScannerView.Re
     @Override
     public void handleResult(Result rawResult) {
 
-        Toast.makeText(getActivity(), "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Contents = " + rawResult.getText() +", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+
+        String[] datos = rawResult.getText().split("-");
+        ArticuloCompra articulo = new ArticuloCompra(datos[0],Float.parseFloat(datos[2]),1);
+        BD.insertArticle(articulo, datos[1],datos[3],"0");
+
         getActivity().onBackPressed();
         // ((FragmentoActividadAbsPrincipal)getActivity()).agregueFragmentoAPila(new Nuevo_Articulo());
         // Note:
