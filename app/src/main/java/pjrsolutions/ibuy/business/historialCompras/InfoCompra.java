@@ -1,36 +1,36 @@
 package pjrsolutions.ibuy.business.historialCompras;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
 import pjrsolutions.ibuy.domain.ArticuloCompra;
 import pjrsolutions.ibuy.domain.Compra;
+import pjrsolutions.ibuy.events.finDeLista.FinDeListaEvent;
+import pjrsolutions.ibuy.events.finDeLista.FinDeListaListener;
+import pjrsolutions.ibuy.view.ListaArticulosCompraView;
 
 public class InfoCompra extends FragmentoAbstracto {
+	
+	int n = 0; // TODO: Eliminar esto despues.
 	
 	private Compra compra;
 	
 	private TextView lblFecha;
 	private TextView lblMonto;
 	private TextView lblSucursal;
-	private Button btnFiltrar;
-	private ListView lvArticulos;
+	private ListaArticulosCompraView listaArticulosCompraViews; // View donde se cargan los articulos.
 	
-	private ArticulosCompraArrayAdapter adapterLvArticulos;
-	
-	private AbsListView.OnScrollListener scrollListener;
+	private FinDeListaListener finDeListaListener; // Escucha de llegar al fin de lista.
 	
 	public InfoCompra() {
 	
@@ -59,82 +59,68 @@ public class InfoCompra extends FragmentoAbstracto {
 		this.lblFecha = (TextView)view.findViewById(R.id.lblFechaHoraInfoCompra);
 		this.lblMonto = (TextView)view.findViewById(R.id.lblMontoInfoCompra);
 		this.lblSucursal = (TextView)view.findViewById(R.id.lblSucursalInfoCompra);
-		this.lvArticulos = (ListView)view.findViewById(R.id.lvArticulosInfoCompra);
-		
-		// Inicializar eventos.
-		this.eventosScroll();
-		
-		// Asignar escuchas.
-		this.lvArticulos.setOnScrollListener(this.scrollListener);
+		this.listaArticulosCompraViews = (ListaArticulosCompraView)view.findViewById(R.id.ListaArticulosCompra);
 		
 		// Asignar datos de compra.
 		this.lblFecha.setText(this.compra.getFecha());
 		this.lblMonto.setText(String.valueOf(this.compra.getMonto()));
 		this.lblSucursal.setText(this.compra.getSucursal());
 		
-		// Asignar adaptador a this.lvArticulos.
-		this.adapterLvArticulos = new ArticulosCompraArrayAdapter(this.getActivity(), this.compra);
-		this.lvArticulos.setAdapter(this.adapterLvArticulos);
+		this.listaArticulosCompraViews.setObjetos(this.compra.getArticulos());
+		this.listaArticulosCompraViews.setInfoCompra(this);
+		
+		// Inicializar eventos.
+		this.eventosFinDeLista();
+		
+		// Asignar escuchas.
+		this.listaArticulosCompraViews.setFinDeListaListener(this.finDeListaListener);
 		
 		/*
 			Llamar web service aqui.
 		*/
-		this.adapterLvArticulos.add(new ArticuloCompra("Articulo con un nombre muy, pero muy muy largo", 1200.50f, 5));
-		this.adapterLvArticulos.add(new ArticuloCompra("Articulo", 12020.50f, 555));
-		this.adapterLvArticulos.add(new ArticuloCompra("Articulo Nuevo", 1200.50f, 5));
-		this.adapterLvArticulos.add(new ArticuloCompra("Articulo Viejo", 1200.50f, 5));
-		this.adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-		this.adapterLvArticulos.add(new ArticuloCompra("Articulo Mas", 1200.50f, 5));
-
-//		Toast.makeText(getContext(), "Codigo: " + compra.getCodigo(), Toast.LENGTH_SHORT).show();
+		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
+		
+		for (int x = 0; x < 15; x ++) {
+			
+			n ++;
+			
+			this.listaArticulosCompraViews.add(new ArticuloCompra("Articulo " + n, 5000.0f, 3));
+			
+		}
+		
+		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
 		
 		return view;
 		
 	}
 	
-	/*
-			Eventos al hacer scroll.
-		*/
-	private void eventosScroll () {
+	private void eventosFinDeLista () {
 		
-		this.scrollListener = new AbsListView.OnScrollListener() {
+		this.finDeListaListener = new FinDeListaListener() {
 			
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-			
-			}
-			
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+			public void finDeLista (FinDeListaEvent event) {
 				
-				if (view.getId() == R.id.lvArticulosInfoCompra) { // this.lvArticulos.
+//				System.out.println("========= Llego al final de la lista");
+				
+				/*
+					Llamar web service aqui.
+				*/
+				
+				event.getLista().changeAtendiendoFinDeLista();
+				System.out.println("En el final");
+				
+				for (int x = 0; x < 5; x ++) {
 					
-					if (compra.getArticulos().size() == 0) {
-						
-						return;
-						
-					}
+					n ++;
 					
-					int posUltimoVisible = lvArticulos.getLastVisiblePosition(); // Posicion de la ultima compra visible.
-					int cantidadArticulos = compra.getArticulos().size();
+					ArticuloCompra articuloCompra = new ArticuloCompra("Articulo " + n, 5000.0f, 3);
 					
-					if (posUltimoVisible == (cantidadArticulos - 1)) { // Scroll a ultima posicion.
-						
-						System.out.println("Ultima posicion");
-
-						/*
-							Llamar web service aqui.
-						*/
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						adapterLvArticulos.add(new ArticuloCompra("Otro Articulo", 1200.50f, 5));
-						
-					}
+					((ListaArticulosCompraView)event.getLista()).add(articuloCompra);
 					
 				}
+				
+				event.getLista().changeAtendiendoFinDeLista();
 				
 			}
 			
@@ -162,9 +148,9 @@ public class InfoCompra extends FragmentoAbstracto {
 		int id = item.getItemId();
 		
 		if (id == R.id.opFiltrarMenuInfoCompra) { // Filtar.
-			
+		
 //			this.nuevoFragmento(new FiltrarArticulosCompra());
-			
+		
 		} else if (id == R.id.opMenuPrincipalMenuInfoCompra) { // Menu principal.
 		
 		
@@ -180,3 +166,4 @@ public class InfoCompra extends FragmentoAbstracto {
 	}
 	
 }
+

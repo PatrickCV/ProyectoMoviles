@@ -3,18 +3,19 @@ package pjrsolutions.ibuy.events.finDeLista;
 import java.util.EventObject;
 
 import pjrsolutions.ibuy.view.base.ListaAbstracta;
+import pjrsolutions.ibuy.view.base.ListaDinamicaAbstracta;
 
 /**
  Evento de llegar al final de una ListaAbstracta.
  */
 public class FinDeListaEvent extends EventObject {
 	
-	private ListaAbstracta lista; // ListaAbstracta relacionada.
+	private ListaDinamicaAbstracta lista; // ListaAbstracta relacionada.
 	
 	/**
-	 Constructor. Genera el evento. Recibe una ListaAbstracta.
-	 */
-	public FinDeListaEvent (ListaAbstracta lista) {
+		Constructor. Genera el evento. Recibe una ListaAbstracta.
+	*/
+	public FinDeListaEvent (ListaDinamicaAbstracta lista) {
 		
 		super(lista);
 		
@@ -23,10 +24,10 @@ public class FinDeListaEvent extends EventObject {
 	}
 	
 	/**
-	 Sets & Gets.
-	 */
+		Sets & Gets.
+	*/
 	
-	public ListaAbstracta getLista () {
+	public ListaDinamicaAbstracta getLista () {
 		
 		return this.lista;
 		

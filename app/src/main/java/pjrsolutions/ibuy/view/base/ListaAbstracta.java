@@ -1,6 +1,5 @@
 package pjrsolutions.ibuy.view.base;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
@@ -27,19 +26,11 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 	private ArrayList<T> objetos;
 	
 	private View rootView;
-	private ScrollView scScroll;
 	private LinearLayout llAreaObjetos;
-	private ProgressBar pbProgreso;
-	
-	private ViewTreeObserver.OnScrollChangedListener scrollChangeListener;
-	private FinDeListaListener finDeListaListener;
-	private ArrayList<FinDeListaListener> finDeListaListeners;
-	
-	private boolean atendiendoFinDeLista; // Se esta atendiendo o no la peticion al llegar al final.
 	
 	/**
-		Constructor programatico basico.
-	*/
+	 Constructor programatico basico.
+	 */
 	public ListaAbstracta (Context context) {
 		
 		super(context);
@@ -47,29 +38,27 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		this.initUI(context);
 		
 		this.objetos = new ArrayList<T>();
-		this.finDeListaListeners = new ArrayList<FinDeListaListener>();
-		this.atendiendoFinDeLista = false;
-		
+	
 	}
 	
 	/**
-		Contructor programatico. Recibe una lista de objetos.
-	*/
+	 Contructor programatico. Recibe una lista de objetos.
+	 */
 	public ListaAbstracta (Context context, ArrayList<T> objetos) {
 		
 		super(context);
 		
+		System.out.println("=== PASO ===");
+		
 		this.initUI(context);
 		
 		this.objetos = objetos;
-		this.finDeListaListeners = new ArrayList<FinDeListaListener>();
-		this.atendiendoFinDeLista = false;
-		
+	
 	}
 	
 	/**
-		Constructor para paleta.
-	*/
+	 Constructor para paleta.
+	 */
 	public ListaAbstracta (Context context, @Nullable AttributeSet attrs) {
 		
 		super(context, attrs);
@@ -77,165 +66,33 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		this.initUI(context);
 		
 		this.objetos = new ArrayList<T>();
-		this.finDeListaListeners = new ArrayList<FinDeListaListener>();
-		this.atendiendoFinDeLista = false;
-		
+	
 	}
 	
 	/**
-		Inicia los componentes visuales a partir de un layout.
-	*/
-//	@SuppressLint("NewApi")
-	private void initUI (Context context) {
+	 Inicia los componentes visuales a partir de un layout.
+	 */
+	protected void initUI (Context context) {
 		
 		// Capturar vistas.
 		this.rootView = LinearLayout.inflate(context, R.layout.lista_abstracta, this);
-		this.scScroll = (ScrollView)this.rootView.findViewById(R.id.scScrollListaAbstracta);
-		this.llAreaObjetos = (LinearLayout) this.rootView.findViewById(R.id.llAreaObjetosListaAbstracta);
-		this.pbProgreso = (ProgressBar) this.rootView.findViewById(R.id.pbProgresoListaAbstracta);
-
-		// Definir eventos.
-		this.eventosScroll();
-		
-		// Asignar eventos.
-//		this.scScroll.setOnScrollChangeListener(this.scrollChangeListener);
-		
-		this.scScroll.getViewTreeObserver().addOnScrollChangedListener(this.scrollChangeListener);
+		this.llAreaObjetos = (LinearLayout)this.rootView.findViewById(R.id.llAreaObjetosListaAbstracta);
 		
 	}
 	
 	/**
-		Eventos de hacer scroll.
-	*/
-//	@SuppressLint("NewApi")
-	private void eventosScroll () {
-		
-		this.scrollChangeListener = new ViewTreeObserver.OnScrollChangedListener() {
-			
-			@Override
-			public void onScrollChanged() {
-			
-				int scrollY = scScroll.getScrollY();
-				
-//				System.out.println(scrollY);
-				
-				if (scrollY % 2 == 0) { // Cada 2 dp.
-
-					// Se llego al final y no se esta atendiendo el evento.
-					if (enElFinal() && !isAtendiendoFinDeLista()) {
-
-						notifyFinDeListaListeners(); // Notificar listeners.
-
-					}
-
-				}
-			
-			}
-			
-		};
-		
-//		OnScrollChangeListener() {
-//
-//			@Override
-//			public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//				if (scrollY % 2 == 0) { // Cada 2 dp.
-//
-//					// Se llego al final y no se esta atendiendo el evento.
-//					if (enElFinal() && !isAtendiendoFinDeLista()) {
-//
-//						notifyFinDeListaListeners(); // Notificar listeners.
-//
-//					}
-//
-//				}
-//
-//			}
-//
-//		};
-		
-	}
-	
-	/**
-		Notifica a todos los FinDeListaListeners subscritos
-		de un FinDeListaEvent.
-	*/
-	private void notifyFinDeListaListeners () {
-		
-		FinDeListaEvent event;
-		
-		if (this.finDeListaListener != null) {
-			
-			event = new FinDeListaEvent(this);
-			
-			this.finDeListaListener.finDeLista(event);
-			
-		}
-		
-		for (FinDeListaListener listener : this.finDeListaListeners) {
-			
-			event = new FinDeListaEvent(this);
-			
-			listener.finDeLista(event);
-			
-		}
-		
-	}
-	
-	/**
-		Verifica si se llego al final de la lista.
-	*/
-	private boolean enElFinal () {
-		
-		// Obtener el rectangulo del contenedor.
-		Rect rect = new Rect();
-		this.scScroll.getHitRect(rect);
-		
-		// this.pbProgreso esta dentro del rectangulo visible del contenedor.
-		if (this.pbProgreso.getLocalVisibleRect(rect)) {
-			
-			return true;
-			
-		}
-		
-		return false;
-		
-	}
-	
-	/**
-		Inicia la animacion de carga.
-	*/
-	public void iniciarAnimacionCarga () {
-		
-		this.pbProgreso.setVisibility(View.VISIBLE);
-		
-	}
-	
-	/**
-		Detiene la animacion de carga.
-		Tambien se puede llamar luego de crear la lista en caso de
-		que no se requiera cargar mas elementos, para que asi no se
-		muestre la animacion de carga.
-	*/
-	public void detenerAnimacionCarga () {
-		
-		this.pbProgreso.setVisibility(View.INVISIBLE);
-		
-	}
-	
-	/**
-		Agrega un nuevo elemento.
-	*/
+	 Agrega un nuevo elemento.
+	 */
 	public abstract void agregarObjeto (T objeto);
 	
 	/**
-		Agrega un espacio entre los elementos.
-	*/
+	 Agrega un espacio entre los elementos.
+	 */
 	public abstract void agregarEspacio ();
 	
 	/**
-		Sets, Gets, Is's & Adds.
-	*/
+	 Sets, Gets, & Otros.
+	 */
 	
 	public void setObjetos (ArrayList<T> objetos) {
 		
@@ -249,22 +106,16 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		
 	}
 	
+	public void setRootView (View rootView) {
+		
+		this.rootView = rootView;
+		
+	}
+	
 	@Override
 	public View getRootView () {
 		
 		return this.rootView;
-		
-	}
-	
-	public void setFinDeListaListener (FinDeListaListener finDeListaListener) {
-		
-		this.finDeListaListener = finDeListaListener;
-		
-	}
-	
-	public void addFinDeListaListener (FinDeListaListener finDeListaListener) {
-		
-		this.finDeListaListeners.add(finDeListaListener);
 		
 	}
 	
@@ -284,9 +135,9 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		
 	}
 	
-	public ScrollView getScScroll () {
+	public void setLlAreaObjetos (LinearLayout llAreaObjetos) {
 		
-		return this.scScroll;
+		this.llAreaObjetos = llAreaObjetos;
 		
 	}
 	
@@ -295,28 +146,5 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 		return this.llAreaObjetos;
 		
 	}
-	
-	public void changeAtendiendoFinDeLista () {
-		
-		if (this.atendiendoFinDeLista) { // Esta siendo atendido.
-			
-			this.detenerAnimacionCarga();
-			
-		} else { // No se esta siendo atendido.
-			
-			this.iniciarAnimacionCarga();
-			
-		}
-		
-		// Cambiar estado.
-		this.atendiendoFinDeLista = !this.atendiendoFinDeLista;
-		
-	}
-	
-	public boolean isAtendiendoFinDeLista () {
-		
-		return this.atendiendoFinDeLista;
-		
-	}
-	
+
 }
