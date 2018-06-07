@@ -1,5 +1,7 @@
 package pjrsolutions.ibuy.business.base;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
@@ -83,6 +85,12 @@ public class ActividadAbstracta extends AppCompatActivity {
 			this.moveTaskToBack(true); // minimizar.
 			
 		}
+		
+	}
+	
+	public SharedPreferences getSharedPrederences (String archivo) {
+		
+		return getSharedPreferences(archivo, Context.MODE_PRIVATE);
 		
 	}
 

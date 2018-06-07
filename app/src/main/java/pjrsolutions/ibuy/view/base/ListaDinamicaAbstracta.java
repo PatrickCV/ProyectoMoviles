@@ -91,6 +91,9 @@ public abstract class ListaDinamicaAbstracta<T> extends ListaAbstracta<T> {
 			@Override
 			public void onScrollChanged() {
 				
+				// Scroll no visible.
+				if (!scScroll.isShown()) return; // todo: Agregar a iBuy.
+				
 				int scrollY = getScScroll().getScrollY();
 				
 				if (scrollY % 2 == 0) { // Cada 2 dp.

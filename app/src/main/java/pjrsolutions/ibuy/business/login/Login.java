@@ -14,24 +14,25 @@ import java.util.ArrayList;
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
 import pjrsolutions.ibuy.business.menuPrincipal.MenuPrincipal;
+import pjrsolutions.ibuy.webServices.WebServiceLogin;
 
 /**
  	Esta clase atiende los eventos generados en el fragmento del Login.
  	Controla el acceso a la aplicacion.
 */
-public class Login extends FragmentoAbstracto {
+public class Login extends FragmentoAbstracto implements View.OnClickListener {
+	
+	private WebServiceLogin webServiceLogin;
 	
 	private EditText etUsuario;
 	private EditText etPassword;
 	private Button btnEntrar;
 	
-	private OnClickListener clickListener; // Escucha de clicks.
-	
 	public Login () {
 	
 	}
 	
-	/*
+	/**
 		Crea la vista.
 	*/
 	@Override
@@ -47,119 +48,44 @@ public class Login extends FragmentoAbstracto {
 		this.etPassword = (EditText)view.findViewById(R.id.etPasswordLogin);
 		this.btnEntrar = (Button)view.findViewById(R.id.btnEntrarLogin);
 		
-		// Definir eventos.
-		this.eventosClick();
-		
 		// Asignar escuchas.
-		this.btnEntrar.setOnClickListener(this.clickListener);
+		this.btnEntrar.setOnClickListener(this);
 		
 		return view;
 		
 	}
 	
-	/*
+	/**
 		Eventos de hacer click.
 	*/
-	private void eventosClick () {
-	
-		this.clickListener = new OnClickListener() {
+	@Override
+	public void onClick (View v) {
+		
+		if (v.getId() == R.id.btnEntrarLogin) { // Entrar.
 			
-			@Override
-			public void onClick(View v) {
+			String usuario = etUsuario.getText().toString().trim();
+			usuario = usuario.replace("@", "__ARROBA__");
+			usuario = usuario.replace(".", "__DOT__");
+			String password = etPassword.getText().toString().trim();
 			
-				if (v.getId() == R.id.btnEntrarLogin) { // Entrar.
+			if (usuario.equals("") || password.equals("")) {
 				
-					String usuario = String.valueOf(etUsuario.getText()).trim();
-					String password = String.valueOf(etPassword.getText()).trim();
-					
-					if (logueo(usuario, password)) {
-						
-						// Cambiar fragmento.
-						nuevoFragmento(new MenuPrincipal());
-						
-					}
+				Toast.makeText(getContext(), "Debe completar los campos", Toast.LENGTH_SHORT).show();
 				
-				}
-			
+			} else {
+				
+				this.webServiceLogin = new WebServiceLogin(this);
+				this.webServiceLogin.execute(usuario, password);
+				
 			}
 			
-		};
+		}
 	
 	}
 	
-	/*
-		Comprueba el usuario y el password.
-	*/
-	private boolean logueo (String usuario, String password) {
+	public void cambiarEstadoBtnEntrar () {
 		
-		ArrayList<String> mensajes = new ArrayList<String>();
-		boolean todoBien = true;
-		
-		// Debug.
-//		Toast.makeText(getContext(), "Usuario: " + usuario + ", Pass: " + password, Toast.LENGTH_SHORT).show();
-		
-		if (usuario.equals("")) { // Usuario vacio.
-			
-//			todoBien = false;
-			mensajes.add("# Debe ingresar el usuario");
-			
-		}
-		
-		if (password.equals("")) { // Password vacio.
-			
-//			todoBien = false;
-			mensajes.add("# Debe ingresar el password");
-			
-		}
-		
-		if (todoBien) { // Todo va bien.
-					
-			/*
-				Hacer llamado a web service aqui.
-			*/
-			boolean usuarioExiste = true;
-			boolean logueoCorrecto = true;
-			
-			if (usuarioExiste) { // Usuario existe.
-				
-				if (!logueoCorrecto) {
-					
-					todoBien = false;
-					mensajes.add("# El usuario no existe");
-					
-				}
-				
-			} else { // Usuario no existe.
-				
-				todoBien = false;
-				mensajes.add("# Password incorrecta");
-				
-			}
-			
-		}
-		
-		if (todoBien) { // Todo bien.
-			
-			// Dejar pasar.
-//			Toast.makeText(getContext(), "Super seguridad :v", Toast.LENGTH_SHORT).show();
-			
-			return true;
-			
-		} else { // Hay problemas.
-			
-			StringBuilder mensaje = new StringBuilder();
-			
-			for (int x = 0; x < mensajes.size(); x ++) {
-				
-				mensaje.append(mensajes.get(x) + "\n");
-				
-			}
-			
-			Toast.makeText(getContext(), mensaje.toString(), Toast.LENGTH_SHORT).show();
-			
-		}
-		
-		return false;
+		this.btnEntrar.setEnabled(!this.btnEntrar.isEnabled());
 		
 	}
 	

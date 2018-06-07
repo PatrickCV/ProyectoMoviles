@@ -90,6 +90,15 @@ public abstract class ListaAbstracta<T> extends LinearLayout {
 	 */
 	public abstract void agregarEspacio ();
 	
+	public void limpiar () { //todo: agregar a iBuy.
+		
+		this.getLlAreaObjetos().removeAllViews();
+		
+		this.setObjetos(new ArrayList<T>());
+		
+		
+	}
+	
 	/**
 	 Sets, Gets, & Otros.
 	 */

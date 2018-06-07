@@ -53,6 +53,46 @@
 
     <!-- </Login> -->
 
+    <!-- Filtrar Compras -->
+
+    <style name="lblTituloFiltrarCompras">
+        <item name="android:textSize">25dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="lblSubTituloFiltrarCompras">
+        <item name="android:textSize">20dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- /Filtrar Compras -->
+
+    <!-- Filtrar Articulos Compra -->
+
+    <style name="lblTituloFiltrarArticulosCompra">
+        <item name="android:textSize">25dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="lblSubTituloFiltrarArticulosCompra">
+        <item name="android:textSize">20dp</item>
+        <item name="android:lineSpacingExtra">10dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- /Filtrar Articulos Compra -->
+
     <!-- <Menu Principal> -->
 
     <style name="btnMenuPrincipal">

@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
+import pjrsolutions.ibuy.conf.FiltrarComprasConf;
 import pjrsolutions.ibuy.domain.Compra;
+import pjrsolutions.ibuy.domain.Sesion;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaEvent;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaListener;
 import pjrsolutions.ibuy.view.ListaComprasView;
@@ -24,14 +26,14 @@ import pjrsolutions.ibuy.webServices.WebServiceCompras;
 */
 public class HistorialCompras extends FragmentoAbstracto {
 	
+	private FiltrarComprasConf filtrarComprasConf;
+	
 	int n = 0; // TODO: Eliminar esto despues.
 
 	private ArrayList<Compra> compras; // Compras.
 
 	private View estadoVista; // Guarda estado de la vista.
 	private ListaComprasView listaCompras; // View donde se cargan las compras.
-
-//	private WebServiceClienteCompras webServiceClienteCompras; // Web service.
 
 	private AbsListView.OnScrollChangeListener scrollListener; // Escucha de scroll.
 	private View.OnClickListener clickListener; // Escucha de clicks.
@@ -56,12 +58,39 @@ public class HistorialCompras extends FragmentoAbstracto {
 		this.getActivity().setTitle(R.string.ttlHistorialCompras); // Cambiar el titulo.
 
 		this.setHasOptionsMenu(true); // Permitir menu.
+		
+		this.filtrarComprasConf = new FiltrarComprasConf(this.getSharedPrederences(FiltrarComprasConf.CONF_FILE));
+		this.filtrarComprasConf.cargarConfiguracion();
 
+//		System.out.println("========= " + this.filtrarComprasConf.getOrden());
+//		System.out.println("========= " + this.filtrarComprasConf.getFechaEspecifica());
+//		System.out.println("========= " + this.filtrarComprasConf.getFecha_rc());
+		
 		if (this.estadoVista == null) { // No se ha creado la vista.
 
 			this.estadoVista = this.crearVista(inflater, container, savedInstanceState);
 
 		}
+		
+		if (this.listaCompras.hayObjetos()) {
+			
+			this.listaCompras.limpiar();
+			
+		}
+		
+		this.llamarWebservice();
+
+//		this.listaCompras.changeAtendiendoFinDeLista();
+//
+//		for (int x = 0; x < 20; x ++) {
+//
+//			n ++;
+//
+//			this.listaCompras.add(new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000));
+//
+//		}
+//
+//		this.listaCompras.changeAtendiendoFinDeLista();
 
 		return this.estadoVista;
 
@@ -85,22 +114,6 @@ public class HistorialCompras extends FragmentoAbstracto {
 		
 		// Asignando eventos.
 		this.listaCompras.setFinDeListaListener(this.finDeListaListener);
-		
-		// Llamando webservice.
-		WebServiceCompras webServiceCompras = new WebServiceCompras(this);
-		webServiceCompras.execute("getPagina", "patrickconejo14__ARROBA__gmail__DOT__com","0","5","---","---","25-05-2018","29-05-2018","5000.5","monto","desc");
-		
-//		this.listaCompras.changeAtendiendoFinDeLista();
-//
-//		for (int x = 0; x < 20; x ++) {
-//
-//			n ++;
-//
-//			this.listaCompras.add(new Compra(n, "Sucursal " + n, "16/05/2018, 18:34 pm", 50000));
-//
-//		}
-//
-//		this.listaCompras.changeAtendiendoFinDeLista();
 		
 		return view;
 
@@ -127,7 +140,7 @@ public class HistorialCompras extends FragmentoAbstracto {
 
 		if (id == R.id.opFiltrarMenuHistorialCompras) { // Filtar.
 
-//			this.nuevoFragmento(new FiltrarCompras());
+			this.nuevoFragmento(new FiltrarCompras());
 
 		} else if (id == R.id.opMenuPrincipalMenuHistorialCompras) { // Menu principal.
 
@@ -158,11 +171,13 @@ public class HistorialCompras extends FragmentoAbstracto {
 				/*
 					Llamar web service aqui.
 				*/
+				
+				llamarWebservice();
 
 //				event.getLista().changeAtendiendoFinDeLista();
 //				System.out.println("En el final");
 //
-//				for (int x = 0; x < 5; x ++) {
+//				for (int x = 0; x < 10; x ++) {
 //
 //					n ++;
 //
@@ -178,6 +193,38 @@ public class HistorialCompras extends FragmentoAbstracto {
 
 		};
 
+	}
+	
+	private void llamarWebservice () {
+		
+		// Llamando webservice.
+		WebServiceCompras webServiceCompras = new WebServiceCompras(this);
+//		webServiceCompras.execute("getPagina", "patrickconejo14__ARROBA__gmail__DOT__com","0","5","---","---","25-05-2018","29-05-2018","5000.5","monto","desc");
+		webServiceCompras.execute(
+				"getPagina",
+				Sesion.usuario.getCorreoFormateado(),
+				String.valueOf(this.getIdRef()),
+				"10",
+				this.filtrarComprasConf.getSucursal(),
+				this.filtrarComprasConf.getFechaEspecificaFormateada(),
+				this.filtrarComprasConf.getDesdeFechaFormateada(),
+				this.filtrarComprasConf.getHastaFechaFormateada(),
+				String.valueOf(this.filtrarComprasConf.getMontoMinimo()),
+				"fecha",
+				this.filtrarComprasConf.getOrden());
+		
+	}
+	
+	private int getIdRef () {
+		
+		if (this.listaCompras.getObjetos().size() == 0) {
+			
+			return 0;
+			
+		}
+		
+		return this.listaCompras.getObjetos().get(this.listaCompras.getObjetos().size() -1).getCodigo();
+		
 	}
 	
 	public ListaComprasView getListaCompras () {

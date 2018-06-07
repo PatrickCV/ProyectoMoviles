@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <ScrollView
+            style="@android:style/Widget.Material.ScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scrollbarStyle="insideInset">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="200dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/lblOrdenFiltrarCompras"
+                        android:theme="@style/lblSubTituloFiltrarCompras" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <pjrsolutions.ibuy.view.GrupoRadioCompuestoView
+                            android:id="@+id/grcOrdenFiltrarCompras"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcDescendenteFiltrarCompras"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:RCV_text="@string/rcDescendenteFiltrarCompras" />
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcAscendenteFiltrarCompras"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:RCV_text="@string/rcAscendenteFiltrarCompras" />
+
+                        </pjrsolutions.ibuy.view.GrupoRadioCompuestoView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/lblFechaFiltrarCompras"
+                        android:theme="@style/lblSubTituloFiltrarCompras" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
+
+                        <pjrsolutions.ibuy.view.GrupoRadioCompuestoView
+                            android:id="@+id/grcFechaFiltrarCompras"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcTodasFechasFiltrarCompras"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:RCV_text="@string/rcTodasFechasFiltrarCompras" />
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcFechaEspecificaFiltrarCompras"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:RCV_text="@string/rcFechaEspecificaFiltrarCompras" >
+
+                                <pjrsolutions.ibuy.view.FechaView
+                                    android:id="@+id/fechaFechaEspecificaFiltrarCompras"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp" />
+                            </pjrsolutions.ibuy.view.RadioCompuestoView>
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcRangoFechasFiltrarCompras"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                app:RCV_text="@string/rcRangoFechasFiltrarCompras">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="20dp"
+                                    android:orientation="vertical">
+
+                                    <pjrsolutions.ibuy.view.CheckboxCompuestoView
+                                        android:id="@+id/ccDesdeFechaFiltrarCompras"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        app:CCV_text="@string/ccDesdeFechaFiltrarCompras">
+
+                                        <pjrsolutions.ibuy.view.FechaView
+                                            android:id="@+id/fechaDesdeFiltrarCompras"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="20dp" />
+                                    </pjrsolutions.ibuy.view.CheckboxCompuestoView>
+
+                                    <pjrsolutions.ibuy.view.CheckboxCompuestoView
+                                        android:id="@+id/ccHastaFechaFiltrarCompras"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        app:CCV_text="@string/ccHastaFechaFiltrarCompras">
+
+                                        <pjrsolutions.ibuy.view.FechaView
+                                            android:id="@+id/fechaHastaFiltrarCompras"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="20dp" />
+                                    </pjrsolutions.ibuy.view.CheckboxCompuestoView>
+
+                                </LinearLayout>
+                            </pjrsolutions.ibuy.view.RadioCompuestoView>
+                        </pjrsolutions.ibuy.view.GrupoRadioCompuestoView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clipChildren="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/lblSucursalFiltrarCompras"
+                        android:theme="@style/lblSubTituloFiltrarCompras" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
+
+                        <pjrsolutions.ibuy.view.GrupoRadioCompuestoView
+                            android:id="@+id/grcSucursalFiltrarCompras"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcTodasSucursalesFiltrarCompras"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:RCV_text="@string/rcTodasSucursalesFiltrarCompras" />
+
+                            <pjrsolutions.ibuy.view.RadioCompuestoView
+                                android:id="@+id/rcSucursalEspecificaFiltrarCompras"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:RCV_text="@string/rcSucursalEspecificaFiltrarCompras" >
+
+                                <Spinner
+                                    android:id="@+id/spCambiarSucursalEspecificaFiltrarCompras"
+                                    android:layout_width="200dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_weight="1" />
+                            </pjrsolutions.ibuy.view.RadioCompuestoView>
+                        </pjrsolutions.ibuy.view.GrupoRadioCompuestoView>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/lblMontoMinimoFiltrarCompras"
+                        android:theme="@style/lblSubTituloFiltrarCompras" />
+
+                    <EditText
+                        android:id="@+id/etMontoMinimoFiltrarCompras"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:ems="10"
+                        android:inputType="numberDecimal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="200dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnOkFiltrarCompras"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btnOkFiltrarCompras" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

@@ -13,13 +13,17 @@ import java.util.ArrayList;
 
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
+import pjrsolutions.ibuy.conf.FiltrarArticulosCompraConf;
 import pjrsolutions.ibuy.domain.ArticuloCompra;
 import pjrsolutions.ibuy.domain.Compra;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaEvent;
 import pjrsolutions.ibuy.events.finDeLista.FinDeListaListener;
 import pjrsolutions.ibuy.view.ListaArticulosCompraView;
+import pjrsolutions.ibuy.webServices.WebServiceArticulosCompra;
 
 public class InfoCompra extends FragmentoAbstracto {
+	
+	private FiltrarArticulosCompraConf filtrarArticulosCompraConf;
 	
 	int n = 0; // TODO: Eliminar esto despues.
 	
@@ -54,6 +58,9 @@ public class InfoCompra extends FragmentoAbstracto {
 		
 		this.setHasOptionsMenu(true); // Permitir menu.
 		
+		this.filtrarArticulosCompraConf = new FiltrarArticulosCompraConf(this.getSharedPrederences(FiltrarArticulosCompraConf.CONF_FILE));
+		this.filtrarArticulosCompraConf.cargarConfiguracion();
+		
 		// Capturar las vistas.
 		View view = inflater.inflate(R.layout.fragment_info_compra, container, false);
 		this.lblFecha = (TextView)view.findViewById(R.id.lblFechaHoraInfoCompra);
@@ -78,17 +85,26 @@ public class InfoCompra extends FragmentoAbstracto {
 		/*
 			Llamar web service aqui.
 		*/
-		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
 		
-		for (int x = 0; x < 15; x ++) {
+		if (this.listaArticulosCompraViews.hayObjetos()) {
 			
-			n ++;
-			
-			this.listaArticulosCompraViews.add(new ArticuloCompra("Articulo " + n, 5000.0f, 3));
+			this.listaArticulosCompraViews.limpiar();
 			
 		}
 		
-		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
+		this.llamarWebservice();
+
+//		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
+//
+//		for (int x = 0; x < 10; x ++) {
+//
+//			n ++;
+//
+//			this.listaArticulosCompraViews.add(new ArticuloCompra(n, "Articulo " + n, 5000.0f, 3));
+//
+//		}
+//
+//		this.listaArticulosCompraViews.changeAtendiendoFinDeLista();
 		
 		return view;
 		
@@ -101,30 +117,46 @@ public class InfoCompra extends FragmentoAbstracto {
 			@Override
 			public void finDeLista (FinDeListaEvent event) {
 				
-//				System.out.println("========= Llego al final de la lista");
+				System.out.println("========= Llego al final de la lista");
 				
 				/*
 					Llamar web service aqui.
 				*/
 				
-				event.getLista().changeAtendiendoFinDeLista();
-				System.out.println("En el final");
-				
-				for (int x = 0; x < 5; x ++) {
-					
-					n ++;
-					
-					ArticuloCompra articuloCompra = new ArticuloCompra("Articulo " + n, 5000.0f, 3);
-					
-					((ListaArticulosCompraView)event.getLista()).add(articuloCompra);
-					
-				}
-				
-				event.getLista().changeAtendiendoFinDeLista();
-				
+				llamarWebservice();
+
+//				event.getLista().changeAtendiendoFinDeLista();
+//				System.out.println("En el final");
+//
+//				for (int x = 0; x < 10; x ++) {
+//
+//					n ++;
+//
+//					ArticuloCompra articuloCompra = new ArticuloCompra(n, "Articulo " + n, 5000.0f, 3);
+//
+//					((ListaArticulosCompraView)event.getLista()).add(articuloCompra);
+//
+//				}
+//
+//				event.getLista().changeAtendiendoFinDeLista();
+			
 			}
 			
 		};
+		
+	}
+	
+	private void llamarWebservice () {
+		
+		String[] ordenarPor = {"nombre", "precio", "cantidad"};
+		String[] orden = {"desc", "asc"};
+		
+		WebServiceArticulosCompra ws = new WebServiceArticulosCompra(this);
+		ws.execute(
+				String.valueOf(this.compra.getCodigo()),
+				String.valueOf(this.getIdRef()),
+				ordenarPor[this.filtrarArticulosCompraConf.getOrdenarPor()],
+				orden[this.filtrarArticulosCompraConf.getOrden()]);
 		
 	}
 	
@@ -148,9 +180,9 @@ public class InfoCompra extends FragmentoAbstracto {
 		int id = item.getItemId();
 		
 		if (id == R.id.opFiltrarMenuInfoCompra) { // Filtar.
-		
-//			this.nuevoFragmento(new FiltrarArticulosCompra());
-		
+			
+			this.nuevoFragmento(new FiltrarArticulosCompra());
+			
 		} else if (id == R.id.opMenuPrincipalMenuInfoCompra) { // Menu principal.
 		
 		
@@ -162,6 +194,24 @@ public class InfoCompra extends FragmentoAbstracto {
 		}
 		
 		return super.onOptionsItemSelected(item);
+		
+	}
+	
+	private int getIdRef () {
+		
+		if (this.listaArticulosCompraViews.getObjetos().size() == 0) {
+			
+			return 0;
+			
+		}
+		
+		return this.listaArticulosCompraViews.getObjetos().get(this.listaArticulosCompraViews.getObjetos().size() -1).getId();
+		
+	}
+	
+	public ListaArticulosCompraView getListaArticulosCompraViews () {
+		
+		return this.listaArticulosCompraViews;
 		
 	}
 	

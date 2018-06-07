@@ -1,5 +1,6 @@
 package pjrsolutions.ibuy.business.base;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -20,6 +21,12 @@ public class FragmentoAbstracto extends Fragment {
 	
 		((ActividadAbstracta)this.getActivity()).nuevoFragmento(fragmento);
 	
+	}
+	
+	public SharedPreferences getSharedPrederences (String archivo) {
+		
+		return ((ActividadAbstracta)getActivity()).getSharedPrederences(archivo);
+		
 	}
 
 }
