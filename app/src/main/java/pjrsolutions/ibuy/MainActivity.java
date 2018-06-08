@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import pjrsolutions.ibuy.business.base.ActividadAbstracta;
 import pjrsolutions.ibuy.business.login.Login;
+import pjrsolutions.ibuy.business.usuario.Configuracion_Usuario;
+import pjrsolutions.ibuy.business.usuario.Registrar_Tarjeta;
+import pjrsolutions.ibuy.business.usuario.Registro_Usuario;
 
 public class MainActivity extends ActividadAbstracta {
 	
@@ -15,7 +18,7 @@ public class MainActivity extends ActividadAbstracta {
 		
 		if (savedInstanceState == null) {
 			
-			this.nuevoFragmento(new Login());
+			this.nuevoFragmento(new Configuracion_Usuario());
 		
 		}
 		

@@ -15,7 +15,7 @@ public class FragmentoAbstracto extends Fragment {
 	public void nuevoFragmento (FragmentoAbstracto fragmento) {
 	
 		((ActividadAbstracta)this.getActivity()).nuevoFragmento(fragmento);
-	
+
 	}
 
 }
