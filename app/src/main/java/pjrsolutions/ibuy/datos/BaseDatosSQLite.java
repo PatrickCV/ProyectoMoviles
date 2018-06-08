@@ -37,7 +37,7 @@ public class BaseDatosSQLite extends SQLiteOpenHelper {
      * @param articulo
      * @return iNSERTA UN USUARIO NUEVO QUE YA FUE CARGADO EN EL REGISTRO
      */
-    public boolean insertArticle(ArticuloCompra articulo, String descripcion, String sucursal, String estado) {
+    public boolean insertArticle(ArticuloCompra articulo, String descripcion, String sucursal, String estado, String idArticulo) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constantes.CARRO_ARTICULO_NOMBRE, articulo.getNombre());
@@ -46,6 +46,7 @@ public class BaseDatosSQLite extends SQLiteOpenHelper {
         contentValues.put(Constantes.CARRO_ARTICULO_PRECIO_UNIDAD, articulo.getPrecio());
         contentValues.put(Constantes.CARRO_ARTICULO_SUCURSAL, sucursal);
         contentValues.put(Constantes.CARRO_ARTICULO_ESTADO, estado);
+        contentValues.put(Constantes.CARRO_ARTICULO_IDARTICULO, idArticulo);
         long result = db.insert(Constantes.TABLA_CARRO, null, contentValues);
         //long result = 1;
         return (result != -1) ? true : false;
@@ -69,7 +70,7 @@ public class BaseDatosSQLite extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateArticle(ArticuloCompra articulo, String descripcion, String sucursal, String estado) {
+    public boolean updateArticle(ArticuloCompra articulo, String descripcion, String sucursal, String estado, String idArticulo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constantes.CARRO_ARTICULO_NOMBRE, articulo.getNombre());
@@ -78,6 +79,7 @@ public class BaseDatosSQLite extends SQLiteOpenHelper {
         contentValues.put(Constantes.CARRO_ARTICULO_PRECIO_UNIDAD, articulo.getPrecio());
         contentValues.put(Constantes.CARRO_ARTICULO_SUCURSAL, sucursal);
         contentValues.put(Constantes.CARRO_ARTICULO_ESTADO, estado);
+        contentValues.put(Constantes.CARRO_ARTICULO_IDARTICULO, idArticulo);
         db.update(
                 Constantes.TABLA_CARRO, contentValues, Constantes.CARRO_ARTICULO_NOMBRE + " = ? ", new String[]{
                         articulo.getNombre()

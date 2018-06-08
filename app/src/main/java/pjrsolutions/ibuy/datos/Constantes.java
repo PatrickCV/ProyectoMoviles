@@ -23,6 +23,7 @@ public class Constantes {
     public static final String CARRO_ARTICULO_PRECIO_UNIDAD = "Precio";
     public static final String CARRO_ARTICULO_SUCURSAL = "Sucursal";
     public static final String CARRO_ARTICULO_ESTADO = "Estado";
+    public static final String CARRO_ARTICULO_IDARTICULO = "IdArticulo";
 
     public static final String CONSULTA_CREA_TABLA_CARRITO_ACTUAL = "CREATE TABLE " +
             Constantes.TABLA_CARRO + "(" +
@@ -32,7 +33,8 @@ public class Constantes {
             Constantes.CARRO_ARTICULO_CANTIDAD  + " text, " +
             Constantes.CARRO_ARTICULO_PRECIO_UNIDAD  + " text, " +
             Constantes.CARRO_ARTICULO_SUCURSAL  + " text, " +
-            Constantes.CARRO_ARTICULO_ESTADO + " text)" ;
+            Constantes.CARRO_ARTICULO_ESTADO  + " text, " +
+            Constantes.CARRO_ARTICULO_IDARTICULO + " text)" ;
 
     public static final String CONSULTA_BORRA_TABLA_CARRITO = "DROP TABLE IF EXISTS " + Constantes.TABLA_CARRO;
 

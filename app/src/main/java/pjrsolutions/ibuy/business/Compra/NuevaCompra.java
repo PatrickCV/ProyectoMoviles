@@ -25,17 +25,22 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import javax.net.ssl.SSLSession;
+
 import pjrsolutions.ibuy.R;
 import pjrsolutions.ibuy.business.base.FragmentoAbstracto;
 import pjrsolutions.ibuy.business.menuPrincipal.MenuPrincipal;
 import pjrsolutions.ibuy.datos.BaseDatosSQLite;
 import pjrsolutions.ibuy.domain.Articulo;
 import pjrsolutions.ibuy.domain.ArticuloCompra;
+import pjrsolutions.ibuy.domain.Sesion;
+import pjrsolutions.ibuy.webServices.WebServiceCompras;
+import pjrsolutions.ibuy.webServices.WebServiceRealizarCompra;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NuevaCompra extends FragmentoAbstracto implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class NuevaCompra extends FragmentoAbstracto implements View.OnClickListener {
 
     private ArrayList<ArticuloCompra> articulos;
 
@@ -80,13 +85,10 @@ public class NuevaCompra extends FragmentoAbstracto implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btnRegistrarArticulo) {
             nuevoFragmento(new Nuevo_Articulo());
-            /*Intent intent = new Intent(this.getContext(),Lector_QR.class); //(this, Lector_QR.class);
-            startActivity(intent);*/
-            //((FragmentoActividadAbsPrincipal)getActivity()).agregueFragmentoAPila(new LoginFragment());
         }
 
         if (v.getId() == R.id.btnPagar) {
-            nuevoFragmento(new MenuPrincipal());
+            llamadoWebService();
         }
 
         if (v.getId() == R.id.btnCancelarLista) {
@@ -102,20 +104,25 @@ public class NuevaCompra extends FragmentoAbstracto implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapter, View view, int position,
-                            long ID) {
-        // Al hacer click sobre uno de los items del ListView mostramos los
-        // datos en los TextView.
-       // tvNombre.setText(articulos.get(position).getNombre());
-       // tvNumCelda.setText(String.valueOf(position));
+    public void llamadoWebService(){
+        Cursor dato = (Cursor) BD.getData();
+        dato.moveToFirst();
+        if(dato.getCount() > 0) {
+            for (int i = 0; i < dato.getCount(); i++) {
+                WebServiceRealizarCompra webServiceCompras = new WebServiceRealizarCompra(this);
+                webServiceCompras.execute("realizarCompra",Sesion.usuario.getCedula(),dato.getString(3) + "-" + dato.getString(7),"1000200030004000",String.valueOf(Float.parseFloat(dato.getString(4)) * Float.parseFloat(dato.getString(3))),dato.getString(5));
+                //webServiceCompras.execute("realizarCompra",Sesion.usuario.getCedula(),articulo_cantidad,"1000200030004000","10000");
+                dato.moveToNext();
+            }
 
+
+        }
     }
 
     public void llenarLista(){
         Cursor dato = (Cursor) BD.getData();
         dato.moveToFirst();
-        if(dato != null && dato.getCount() > 0) {
+        if(dato.getCount() > 0) {
             String nombre = "";
             int cantidad = 0;
             float precio = 0;
@@ -195,7 +202,7 @@ public class NuevaCompra extends FragmentoAbstracto implements View.OnClickListe
                         String nombre = dato.getString(1);
                         Float precio = Float.parseFloat(dato.getString(4));
                         ArticuloCompra articulo = new ArticuloCompra(nombre, precio, Integer.parseInt(cantidadEscogida));
-                        if (BD.updateArticle(articulo, dato.getString(2), dato.getString(5), dato.getString(6)))
+                        if (BD.updateArticle(articulo, dato.getString(2), dato.getString(5), dato.getString(6), dato.getString(7)))
                             Toast.makeText(getActivity(), "El artículo se modificó correctamente", Toast.LENGTH_SHORT).show();
                     } else
                         dato.moveToNext();
