@@ -18,7 +18,7 @@ public class MainActivity extends ActividadAbstracta {
 		
 		if (savedInstanceState == null) {
 			
-			this.nuevoFragmento(new Configuracion_Usuario());
+			this.nuevoFragmento(new Login());
 		
 		}
 		
