@@ -151,7 +151,15 @@
 
 
     <!-- ====================<Estilos Yanka>==================== -->
-
+    <!--Usuarios y tarjetas-->
+    <style name="textFormulario">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+    <style name="inputFormulario">
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
 
 
     <!-- ====================</Estilos Yanka>==================== -->
