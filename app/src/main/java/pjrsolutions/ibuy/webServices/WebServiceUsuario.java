@@ -21,7 +21,7 @@ import pjrsolutions.ibuy.webServices.base.WebServiceCliente;
 
 public class WebServiceUsuario extends WebServiceCliente {
 
-    private static final String URL_GET_PAGINA = "http://http://192.168.1.7/webservice/webServiceUsuario.php?accion=registrar&cedula=%s&nombre=%s&apellidos=%s&correo=%s&clave=%s";
+    private static final String URL_GET_PAGINA = "http://patrickconejo14.000webhostapp.com/webservices/webServiceUsuario.php?accion=registrar&cedula=%s&nombre=%s&apellidos=%s&correo=%s&clave=%s";
     Context context;
     String respuesta="";
     Registro_Usuario registro_usuario;
@@ -41,6 +41,7 @@ public class WebServiceUsuario extends WebServiceCliente {
     }
 
     public String insertarUsuario(String... params){
+        this.proceso=1;
         this.putUrl("registrar",WebServiceUsuario.URL_GET_PAGINA);
         this.setUrl(String.format(this.getUrls().get("registrar"), (Object[])params));
         System.out.println(this.getUrl());
@@ -50,7 +51,7 @@ public class WebServiceUsuario extends WebServiceCliente {
     }
     public String modificarUsuario(String... params){
         this.proceso=3;
-        String URL_MODIFICAR="http://192.168.1.7/webservice/webServiceUsuario.php?accion=modificar&cedula=%s&nombre=%s&apellidos=%s&correo=%s&clave=%s";
+        String URL_MODIFICAR="http://patrickconejo14.000webhostapp.com/webservices/webServiceUsuario.php?accion=modificar&cedula=%s&nombre=%s&apellidos=%s&correo=%s&clave=%s";
         this.putUrl("modificar",URL_MODIFICAR);
         this.setUrl(String.format(this.getUrls().get("modificar"), (Object[])params));
         System.out.println(this.getUrl());
@@ -59,7 +60,7 @@ public class WebServiceUsuario extends WebServiceCliente {
     }
     public String mostrarUsuario(String... params){
         this.proceso=2;
-        String URL_MOSTRAR="http://192.168.1.7/webservice/webServiceUsuario.php?accion=mostrar&usuario=%s";
+        String URL_MOSTRAR="http://patrickconejo14.000webhostapp.com/webservices/webServiceUsuario.php?accion=mostrar&usuario=%s";
         this.putUrl("mostrar",URL_MOSTRAR);
         this.setUrl(String.format(this.getUrls().get("mostrar"), (Object[])params));
         System.out.println(this.getUrl());
@@ -168,6 +169,7 @@ public class WebServiceUsuario extends WebServiceCliente {
             Toast mensaje = Toast.makeText(this.registro_usuario.getContext(), "Exito!!", Toast.LENGTH_LONG);//desplega un mensaje informndo que el campo esta vacio
             mensaje.setGravity(Gravity.CENTER, 0, 300);//se la da una posicion para ver el mensaje.
             mensaje.show(); //muestra el mensaje
+            this.registro_usuario.getFragmentManager().popBackStack();
         }
         if(proceso==2){
 

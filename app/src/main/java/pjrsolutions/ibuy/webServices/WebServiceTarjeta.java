@@ -23,7 +23,7 @@ import pjrsolutions.ibuy.domain.Tarjeta;
 import pjrsolutions.ibuy.webServices.base.WebServiceCliente;
 
 public class WebServiceTarjeta extends WebServiceCliente {
-    private static final String URL_PAGINA = "http://172.20.10.3/webservice/webServiceTarjeta.php?accion=registrar&numeroTarjeta=%s&usuario=%s&fecha=%s&codigo=%s&nombre=%s&direccion=%s&codPostal=%s";
+    private static final String URL_PAGINA = "http://patrickconejo14.000webhostapp.com/webservices/webServiceTarjeta.php?accion=registrar&numeroTarjeta=%s&usuario=%s&fecha=%s&codigo=%s&nombre=%s&direccion=%s&codPostal=%s";
     String respuesta="";
     int proceso=0;
     Lista_Tarjeta lista_tarjeta;
@@ -57,7 +57,7 @@ public class WebServiceTarjeta extends WebServiceCliente {
     }
     public String modificarTarjeta(String... params){
         this.proceso=3;
-        String URL_Modificar = "http://172.20.10.3/webservice/webServiceTarjeta.php?accion=modificar&id=%s&fecha=%s&nombre=%s&direccion=%s&codPostal=%s";
+        String URL_Modificar = "http://patrickconejo14.000webhostapp.com/webservices/webServiceTarjeta.php?accion=modificar&id=%s&fecha=%s&nombre=%s&direccion=%s&codPostal=%s";
         this.putUrl("modificar",URL_Modificar);
         this.setUrl(String.format(this.getUrls().get("modificar"), (Object[])params));
         System.out.println(this.getUrl());
@@ -66,7 +66,7 @@ public class WebServiceTarjeta extends WebServiceCliente {
     }
     public String mostrarLista(String... params){
         this.proceso=2;
-        String URL_MOSTRAR="http://172.20.10.3/webservice/webServiceTarjeta.php?accion=mostrarTarjetaLista&usuario=%s";
+        String URL_MOSTRAR="http://patrickconejo14.000webhostapp.com/webservices/webServiceTarjeta.php?accion=mostrarTarjetaLista&usuario=%s";
         this.putUrl("mostrarTarjetaLista",URL_MOSTRAR);
         this.setUrl(String.format(this.getUrls().get("mostrarTarjetaLista"), (Object[])params));
         System.out.println(this.getUrl());
@@ -75,7 +75,7 @@ public class WebServiceTarjeta extends WebServiceCliente {
     }
     public String eiminarTarjeta(String... params){
         this.proceso=4;
-        String URL_ELIMINAR="http://172.20.10.3/webservice/webServiceTarjeta.php?accion=eliminar&id=%s";
+        String URL_ELIMINAR="http://patrickconejo14.000webhostapp.com/webservices/webServiceTarjeta.php?accion=eliminar&id=%s";
         this.putUrl("eliminar",URL_ELIMINAR);
         this.setUrl(String.format(this.getUrls().get("eliminar"), (Object[])params));
         System.out.println(this.getUrl());
@@ -199,13 +199,31 @@ public class WebServiceTarjeta extends WebServiceCliente {
     }
 
     private void accionExito () throws JSONException {
-
+        if(proceso==1){
+            Toast mensaje = Toast.makeText(this.registrar_tarjeta.getContext(), "Exito!!", Toast.LENGTH_LONG);//desplega un mensaje informndo que el campo esta vacio
+            mensaje.setGravity(Gravity.CENTER, 0, 300);//se la da una posicion para ver el mensaje.
+            mensaje.show(); //muestra el mensaje
+            this.registrar_tarjeta.getFragmentManager().popBackStack();
+        }
         if(proceso==2){
             Toast mensaje = Toast.makeText(this.lista_tarjeta.getContext(), "Exito!!", Toast.LENGTH_LONG);//desplega un mensaje informndo que el campo esta vacio
             mensaje.setGravity(Gravity.CENTER, 0, 300);//se la da una posicion para ver el mensaje.
             mensaje.show(); //muestra el mensaje
             JSONObject object = new JSONObject(this.getRespuesta());
             lista_tarjeta.refreshHeroList(object.getJSONArray("tarjetas"));
+        }
+        if(proceso==3){
+            Toast mensaje = Toast.makeText(this.modificar_tarjeta.getContext(), "Exito!!", Toast.LENGTH_LONG);//desplega un mensaje informndo que el campo esta vacio
+            mensaje.setGravity(Gravity.CENTER, 0, 300);//se la da una posicion para ver el mensaje.
+            mensaje.show(); //muestra el mensaje
+            lista_tarjeta.listarTarjetas();
+            this.modificar_tarjeta.getFragmentManager().popBackStack();
+        }if(proceso==4){
+            lista_tarjeta.listarTarjetas();
+            Toast mensaje = Toast.makeText(this.lista_tarjeta.getContext(), "Exito!!", Toast.LENGTH_LONG);//desplega un mensaje informndo que el campo esta vacio
+            mensaje.setGravity(Gravity.CENTER, 0, 300);//se la da una posicion para ver el mensaje.
+            mensaje.show(); //muestra el mensaje
+            //this.modificar_tarjeta.getFragmentManager().popBackStack();
         }else{
             System.out.println("Exito: " + this.getRespuesta());
         }

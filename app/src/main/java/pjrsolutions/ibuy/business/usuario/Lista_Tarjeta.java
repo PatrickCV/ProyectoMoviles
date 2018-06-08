@@ -51,6 +51,7 @@ public class Lista_Tarjeta extends FragmentoAbstracto implements View.OnClickLis
     private Button agregarTarjeta;
     private String[]header={"Número de Tarjeta","Opciones"};
     private ArrayList<String[]>rows = new ArrayList<>();
+    private Button btnRegresar;
     ListView listView;
     ProgressBar progressBar;
     WebServiceTarjeta webUser ;
@@ -76,11 +77,11 @@ public class Lista_Tarjeta extends FragmentoAbstracto implements View.OnClickLis
        agregarTarjeta =(Button) view.findViewById(R.id.agregarTarjeta);
        listView = (ListView) view.findViewById(R.id.listViewHeroes);
        progressBar =(ProgressBar) view.findViewById(R.id.progressBar);
-
+       btnRegresar=(Button)view.findViewById(R.id.btnRegresar) ;
        listaTarjeta = new ArrayList<>();
-        this.agregarTarjeta.setOnClickListener(this);
-
-        listarTarjetas();
+       this.agregarTarjeta.setOnClickListener(this);
+       this.btnRegresar.setOnClickListener(this);
+       listarTarjetas();
        return view;
     }
 
@@ -92,7 +93,7 @@ public class Lista_Tarjeta extends FragmentoAbstracto implements View.OnClickLis
     }*/
 
 
-    private void listarTarjetas() {
+    public void listarTarjetas() {
         webUser = new WebServiceTarjeta(this);
         webUser.execute("mostrarLista","702360852");
     }
@@ -100,8 +101,8 @@ public class Lista_Tarjeta extends FragmentoAbstracto implements View.OnClickLis
     public void onClick(View v) {
         if(v.getId()==R.id.agregarTarjeta){
             nuevoFragmento(new Registrar_Tarjeta());
-        }/*if(v.getId()==R.id.textViewUpdate){
-
+        }if(v.getId()==R.id.btnRegresar){
+            getFragmentManager().popBackStack();
         }/*if(v.getId()==R.id.eliminarTarjeta()){
             //elimnar
         }*/

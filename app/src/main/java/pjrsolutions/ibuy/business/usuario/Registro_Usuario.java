@@ -66,8 +66,10 @@ public class Registro_Usuario extends FragmentoAbstracto implements View.OnClick
                 if (validarInsert()) { //si la bandera es cumple lo anterior y no es false
                     Persona nuevousuario = new Persona();
                     nuevousuario.setCedula((cedula.getText().toString()));
-                    nuevousuario.setNombre(nombre.getText().toString());
-                    nuevousuario.setApellidos(apellidos.getText().toString());
+                    String cadenaNombre=nombre.getText().toString().replace(" ","_");
+                    nuevousuario.setNombre(cadenaNombre);
+                    String cadenaApellido=apellidos.getText().toString().replace(" ","_");
+                    nuevousuario.setApellidos(cadenaApellido);
                     nuevousuario.setCorreo(correo.getText().toString());
                     nuevousuario.setClave(clave.getText().toString());
                     webUser = new WebServiceUsuario(this);
@@ -77,6 +79,7 @@ public class Registro_Usuario extends FragmentoAbstracto implements View.OnClick
                 break;
             }
             case R.id.btnCancelarR:{
+                    getFragmentManager().popBackStack();
                 break;
             }
             default:

@@ -149,6 +149,10 @@ public class Modificar_Usuario extends FragmentoAbstracto implements View.OnClic
                 }
                 break;
             }
+            case R.id.btnCancelarM:{
+                getFragmentManager().popBackStack();
+                break;
+            }
         }
     }
 
