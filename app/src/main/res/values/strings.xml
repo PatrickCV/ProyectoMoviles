@@ -57,6 +57,7 @@
     <string name="opMenuPrincipalMenuFiltrarArticulosCompra">Menú</string>
     <string name="opSalirFiltrarMenuArticulosCompra">Salir</string>
     <string name="ttlFiltrarArticulosCompra">Filtrar Artículos de Compra</string>
+    <string name="btnRegistrarLogin">Registrar</string>
     <string-array name="numeros">
         <item>1</item>
         <item>2</item>

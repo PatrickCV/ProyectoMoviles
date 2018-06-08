@@ -27,6 +27,7 @@ public class Login extends FragmentoAbstracto implements View.OnClickListener {
 	private EditText etUsuario;
 	private EditText etPassword;
 	private Button btnEntrar;
+	private Button btnRegistrar;
 	
 	public Login () {
 	
@@ -47,9 +48,11 @@ public class Login extends FragmentoAbstracto implements View.OnClickListener {
 		this.etUsuario = (EditText)view.findViewById(R.id.etUsuarioLogin);
 		this.etPassword = (EditText)view.findViewById(R.id.etPasswordLogin);
 		this.btnEntrar = (Button)view.findViewById(R.id.btnEntrarLogin);
+		this.btnRegistrar = (Button)view.findViewById(R.id.btnRegistrarLogin);
 		
 		// Asignar escuchas.
 		this.btnEntrar.setOnClickListener(this);
+		this.btnRegistrar.setOnClickListener(this);
 		
 		return view;
 		
@@ -79,6 +82,10 @@ public class Login extends FragmentoAbstracto implements View.OnClickListener {
 				
 			}
 			
+		} else if (v.getId() == R.id.btnRegistrarLogin) { // Registrar.
+		
+//			this.nuevoFragmento(new Registrar_Usuario());
+		
 		}
 	
 	}
